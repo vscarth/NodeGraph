@@ -4,9 +4,16 @@ export type head = Node;
 export type tail = Node;
 
 export interface Node {
-  uuid: uuid;
-  name: string | undefined;
+  uuid: uuid; // UUID of node
+  label: string | number | object; // Name of node
   data: object | undefined; // Unconstrained data stored as object
+  properties:
+    | Array<{
+        name: string; // Name of property
+        propertyUuid: uuid; // UUID of property
+        relationships: Array<uuid>; // Relationships to other nodes by node UUID
+      }>
+    | undefined;
 }
 
 export interface Nodes {
