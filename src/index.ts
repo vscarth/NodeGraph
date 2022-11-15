@@ -15,12 +15,14 @@ interface State {
 
 const defaultState: State = {
   nodes: {
-    nodes: new Map<uuid, Node>(),
-    nodeKeys: new Array<uuid>(),
+    nodes: new Array<Property>(),
+    nodesKeyByName: new Map<string, number>(),
+    nodesKeyByUUID: new Map<uuid, number>(),
   },
   properties: {
     properties: new Array<Property>(),
-    propertiesKey: new Map<string, number>(),
+    propertyKeyByName: new Map<string, number>(),
+    propertyKeyByUUID: new Map<uuid, number>(),
   },
 };
 
@@ -150,8 +152,12 @@ class GraphDB {
     };
 
     try {
-      await this.$store.nodes.nodeKeys.push(newUuid);
-      await this.$store.nodes.nodes.set(newUuid, newNode);
+      await this.$store.nodes.nodes.push(newNode);
+
+      const key = this.$store.nodes.nodes.length;
+
+      await this.$store.nodes.nodesKeyByName.set(label, key);
+      await this.$store.nodes.nodesKeyByUUID.set(newUuid, key);
     } catch (e) {
       log.error(e);
       return;
@@ -179,10 +185,12 @@ class GraphDB {
     };
 
     try {
-      const len = this.$store.properties.properties.length;
+      await this.$store.properties.properties.push(newProperty);
 
-      this.$store.properties.properties.push(newProperty);
-      this.$store.properties.propertiesKey.set(newUuid, len + 1);
+      const key = this.$store.properties.properties.length;
+
+      await this.$store.properties.propertyKeyByName.set(name, key);
+      await this.$store.properties.propertyKeyByUUID.set(newUuid, key);
     } catch (e) {
       log.error(e);
       return;
