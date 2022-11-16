@@ -5,7 +5,6 @@ import { Node } from "@/graph";
 export interface Property {
   name: string; // Name of property
   uuid: uuid; // Property UUID
-  nodes: Map<uuid, void>; // Nodes with this property by uuid
 }
 
 export interface Properties {
