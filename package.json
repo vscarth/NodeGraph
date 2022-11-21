@@ -5,7 +5,10 @@
   "main": "./public/index.html",
   "scripts": {
     "dev:start": "live-server --open=./public/ --host=localhost --watch=./public/",
-    "webpack": "npx webpack-cli b",
+    "build:dev": "npx webpack-cli b --config ./webpack.dev.config.js",
+    "build:prod": "npm run build:css:prod && npm run build:js:prod",
+    "build:js:prod": "NODE_ENV=production webpack --config ./webpack.prod.config.js",
+    "build:css:prod": "NODE_ENV=production npx tailwindcss -i ./src/style.css -o ./dist/index.css",
     "test": "jest",
     "test:coverage": "jest --coverage -c ./jest.unit.json"
   },
