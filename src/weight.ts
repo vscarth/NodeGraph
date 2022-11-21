@@ -14,6 +14,7 @@ export abstract class Weight implements IWeight {
   }
 
   public set weight(v: number) {
+    this._weightDeclared = true;
     this._weight = v;
   }
 
@@ -21,18 +22,10 @@ export abstract class Weight implements IWeight {
     return this._weightDeclared;
   }
 
-  private set weightDeclared(v: boolean) {
-    this._weightDeclared = v;
-  }
-
   constructor(weight: number | undefined) {
     if (weight != undefined) {
       this._weight = weight;
-      this.weightDeclared = true;
+      this._weightDeclared = true;
     }
-  }
-
-  private weighted(): boolean {
-    return this._weight == undefined;
   }
 }
