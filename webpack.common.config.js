@@ -17,15 +17,7 @@ module.exports = {
   },
   output: {
     filename: "[name].bundle.js",
-    path: path.resolve(__dirname, "dist"),
-  },
-  optimization: {
-    // Instruct webpack not to obfuscate the resulting code
-    minimize: false,
-    splitChunks: {
-      chunks: "all",
-      name: "shared",
-    },
+    path: path.resolve(__dirname, "public"),
   },
 
   module: {
